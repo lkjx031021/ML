@@ -85,3 +85,13 @@ $$
 \begin{matrix}a = \frac{1}{n}\sum_i \mu_i\\b = \frac{\sum_i \mu_i y_i}{\sum_i{\mu_i}}\\c = \frac{\sum_i (1-\mu_i) y_i}{\sum_i{(1-\mu_i)}}\\\end{matrix}
 $$
 
+  
+
+
+
+
+
+
+
+
+
