@@ -35,11 +35,11 @@ class LogisticRegressionClassifier():
         # bias = np.ones([x.shape[0]]).reshape([-1,1])
         # x = np.c_[x,bias] # 加偏执项
         self.shape1 = x.shape[1]
-        self.theta = np.random.normal(0,1,[self.shape1,1])
-        # self.theta = np.array([2.,1.,-15.3]).reshape([self.shape1, 1])
+        # self.theta = np.random.normal(0,1,[self.shape1,1])
+        self.theta = np.array([2.,1.,-15.3]).reshape([self.shape1, 1])
         # self.theta = np.array([2.,1.,5.3]).reshape([self.shape1, 1])
 
-        # self.draw(x, y)
+        self.draw(x, y)
         for itr in range(self.max_itr):
             model = self.sigmod(np.dot(x,self.theta))
             model = model - y
@@ -49,7 +49,8 @@ class LogisticRegressionClassifier():
             model = model.reshape([-1,1])
             self.theta -= self.alpha * model
             print(self.theta)
-            # self.draw(x, y)
+            if itr % 5 == 0:
+                self.draw(x, y)
 
     def predict(self,x):
         # bias = np.ones([x.shape[0]]).reshape([-1,1])
@@ -98,15 +99,15 @@ if __name__ == '__main__':
     # X = np.c_[X,x3]
 
     # x_train, x_test, y_train, y_test = train_test_split(X,label, random_state=1)
-    # X, label = create_data()
-    # bias = np.ones([X.shape[0],1])
-    # X = np.c_[X,bias]
+    X, label = create_data()
+    bias = np.ones([X.shape[0],1])
+    X = np.c_[X,bias]
     x_train, x_test, y_train, y_test = train_test_split(X,label, random_state=1)
     print(x_train.shape)
 
     lr = LogisticRegressionClassifier()
     lr.fit(x_train,y_train)
-    # theta0, theta1, theta2 = lr.theta.flatten().tolist()
+    theta0, theta1, theta2 = lr.theta.flatten().tolist()
     result = lr.predict(x_test)
     print(result)
     print(y_test)
@@ -114,23 +115,23 @@ if __name__ == '__main__':
     print(np.mean(score))
 
     x_points = np.arange(4,8,0.01)
-    # y_ = -(x_points * theta0 + theta2) / theta1
+    y_ = -(x_points * theta0 + theta2) / theta1
 
     # 绘制等值线图
-    # xx, yy = np.meshgrid(np.arange(4, 8.01, 0.1),
-    #                      np.arange(2, 5, 0.1))
-    xx, yy = np.meshgrid(np.arange(-10, 10, 0.1),
-                         np.arange(-10, 10, 0.1))
-    bias = np.ones([xx.ravel().shape[0], 1])
+    xx, yy = np.meshgrid(np.arange(4, 8.01, 0.1),
+                         np.arange(2, 5, 0.1))
+    # xx, yy = np.meshgrid(np.arange(-10, 10, 0.1),
+    #                      np.arange(-10, 10, 0.1))
+    # bias = np.ones([xx.ravel().shape[0], 1])
     # z = lr.predict_proba(np.c_[xx.ravel(),yy.ravel(),bias]).reshape(xx.shape)
-    z = lr.predict_proba(np.c_[xx.ravel(),yy.ravel(),xx.ravel()*yy.ravel()]).reshape(xx.shape)
+    # z = lr.predict_proba(np.c_[xx.ravel(),yy.ravel(),xx.ravel()*yy.ravel()]).reshape(xx.shape)
     # z = lr.predict_proba(np.c_[xx.ravel(),yy.ravel()]).reshape(xx.shape)
-    plt.contourf(xx,yy,z)
+    # plt.contourf(xx,yy,z)
 
     # plt.scatter(x1,x2)
     plt.scatter(x_test[:,0],x_test[:,1], c=result.reshape([-1]), edgecolors='k')
     # plt.scatter(x_train[:,0],x_train[:,1], c=y_train.reshape([-1]))
-    # plt.plot(x_points,y_, c='r')
+    plt.plot(x_points,y_, c='r')
     plt.show()
     exit()
 

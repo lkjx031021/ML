@@ -1,6 +1,6 @@
-import tensorflow as tf
 from keras.datasets import mnist
 from tensorflow.examples.tutorials.mnist import input_data
+import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
 
