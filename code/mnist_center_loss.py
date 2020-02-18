@@ -28,17 +28,17 @@ def center_loss(emb, labels, num_class, name=''):
         centroids_delta = tf.get_variable('centroidsUpdateTempVariable', shape=[num_class, num_features],
                                           dtype=tf.float32,
                                           initializer=tf.zeros_initializer(), trainable=False)
-        label_index = tf.argmax(labels,axis=1)
-        center_emb = tf.gather(centerids, label_index)
+        label_index = tf.argmax(labels,axis=1)   # 每个样本的坐标索引
+        center_emb = tf.gather(centerids, label_index)  # 每个样本对应的中心点坐标  第一个维度和emb的第一个维度一样
         closs = tf.nn.l2_loss(emb - center_emb) / float(128)
 
         diff = center_emb - emb
 
         # label_index = tf.cast(label_index,tf.int64)
-        delta_c_nominator = tf.scatter_add(centroids_delta, label_index, diff)
+        delta_c_nominator = tf.scatter_add(centroids_delta, label_index, diff) # 每个类别所有样本相对中心坐标的偏移量 [num_class, features]
 
         indices = tf.expand_dims(label_index, -1)
-        updates = tf.constant(value=1, shape=[128], dtype=tf.float32)
+        updates = tf.constant(value=1, shape=[128], dtype=tf.float32)    # 128 是batch_size
         shape = tf.constant([num_class], dtype=tf.int64)
         labels_sum = tf.expand_dims(tf.scatter_nd(indices, updates, shape), -1) # 统计当前minibatch下每个类别有多少样本
 
