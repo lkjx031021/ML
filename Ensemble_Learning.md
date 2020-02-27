@@ -10,7 +10,7 @@
 
 根据泰勒展开式：
 
-$f(x+\Delta x)\approx f(x) + f^\prime (x)\Delta x+\frac{1}{2}f^{\prime \prime}\Delta x_2$
+$f(x+\Delta x)\approx f(x) + f^\prime (x)\Delta x+\frac{1}{2}f^{\prime \prime}\Delta x^2$
 
 令，
 $$
