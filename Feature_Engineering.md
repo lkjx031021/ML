@@ -70,11 +70,33 @@ $$
 
 线性模型降维的效果不会超过稀疏自编码器的效果
 
+~~~python
+```
+from sklearn.decomposition import PCA
+#主成分分析法，返回降维后的数据
+#参数n_components为主成分数目
+PCA(n_components=2).fit_transform(iris.data)
+```
+~~~
+
 
 
 ## ICA
 
 - 原理：通过线性变化，两类属性间的分布尽可能不同
+
+## LDA
+
+- LDA的思想用一句话概括就是“投影后类间方差最大，类内方差最小”（有点像分类的感觉哈），也就是说数据投影在低维度空间后，投影点尽可能的接近，而不同类别的投影点群集的中心点彼此之间的离得尽可能大
+
+~~~python
+```
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
+#线性判别分析法，返回降维后的数据
+#参数n_components为降维后的维数
+LDA(n_components=2).fit_transform(iris.data, iris.target)
+```
+~~~
 
 
 
