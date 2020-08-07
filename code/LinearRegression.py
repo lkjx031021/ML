@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from sklearn.metrics import r2_score
 
 def model(x, a, b, c):
     return a*x**2 + b*x + c
@@ -30,6 +31,9 @@ for itr in range(1000):
     a = a - ga * eta
     b = b - gb * eta
     c = c - gc * eta
+    # if _b > 1:
+    #     _b = 1
+    # b = _b
     print(a,b,c)
 
 
@@ -53,3 +57,5 @@ plt.scatter(x, d, s=20, alpha=0.4, label="数据散点")
 plt.plot(X, y, lw=5, color="#990000", alpha=0.5, label="预测关系")
 plt.legend()
 plt.show()
+
+print(r2_score(d, model(x, a, b, c)))
