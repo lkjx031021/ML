@@ -49,8 +49,8 @@ class LogisticRegressionClassifier():
             model = model.reshape([-1,1])
             self.theta -= self.alpha * model
             print(self.theta)
-            if itr % 5 == 0:
-                self.draw(x, y)
+            # if itr % 5 == 0:
+            #     self.draw(x, y)
 
     def predict(self,x):
         # bias = np.ones([x.shape[0]]).reshape([-1,1])
@@ -119,14 +119,14 @@ if __name__ == '__main__':
 
     # 绘制等值线图
     xx, yy = np.meshgrid(np.arange(4, 8.01, 0.1),
-                         np.arange(2, 5, 0.1))
+                         np.arange(0, 8, 0.1))
     # xx, yy = np.meshgrid(np.arange(-10, 10, 0.1),
     #                      np.arange(-10, 10, 0.1))
-    # bias = np.ones([xx.ravel().shape[0], 1])
-    # z = lr.predict_proba(np.c_[xx.ravel(),yy.ravel(),bias]).reshape(xx.shape)
+    bias = np.ones([xx.ravel().shape[0], 1])
+    z = lr.predict_proba(np.c_[xx.ravel(),yy.ravel(),bias]).reshape(xx.shape)
     # z = lr.predict_proba(np.c_[xx.ravel(),yy.ravel(),xx.ravel()*yy.ravel()]).reshape(xx.shape)
     # z = lr.predict_proba(np.c_[xx.ravel(),yy.ravel()]).reshape(xx.shape)
-    # plt.contourf(xx,yy,z)
+    plt.contourf(xx,yy,z)
 
     # plt.scatter(x1,x2)
     plt.scatter(x_test[:,0],x_test[:,1], c=result.reshape([-1]), edgecolors='k')

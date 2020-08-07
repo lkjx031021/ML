@@ -76,7 +76,48 @@ def merge_sort(lists):
     right = merge_sort(lists[middle:])
     return merge(left, right)
 
+def permutation(result, str, list):
+    """
+        取一个数组的全排列
+        list：为输入列表
+        str：传空字符串
+        result： 为结果列表
+    """
+    print(result, str, list[0])
+    if len(list) == 1:
+        result.append(str + "," + list[0])
+    else:
+        for temp_str in list:
+            temp_list = list[:]
+            temp_list.remove(temp_str)
+            # print temp_list
+            permutation(result, str + "," + temp_str, temp_list)
+
+
+def quick_sort(ls):
+    if len(ls) <=1:
+        return ls
+
+    mid = len(ls) // 2
+    mid_elem = ls[mid]
+    left_ls = []
+    right_ls = []
+    mid_ls = []
+    for elem in ls:
+        if elem < mid_elem:
+            left_ls.append(elem)
+        elif elem == mid_elem:
+            mid_ls.append(elem)
+        else:
+            right_ls.append(elem)
+    print('----------')
+    print(left_ls, mid_ls, right_ls)
+
+    return quick_sort(left_ls) + mid_ls + quick_sort(right_ls)
+
+
 
 if __name__ == '__main__':
-    a = [14, 2, 34, 43, 21, 19]
+    a = [14, 2, 34, 18, 43, 21, 19]
     print (merge_sort(a))
+    print(quick_sort(a))
